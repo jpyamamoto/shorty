@@ -1,0 +1,24 @@
+<.flash_group flash={@flash} />
+
+<div class="container mx-auto grid grid-cols-5 gap-4">
+    <div class="col-span-3 content-center">
+        <div class="max-w-lg rounded overflow-hidden shadow-2xl bg-white">
+            <div class="px-6 py-4">
+                <div class="font-bold text-4xl mb-2 text-center">Shorty</div>
+                <div class="container flex flex-col justify-center justify-items-center content-center">
+                    <div>
+                        <p class="mt-8 text-center text-xl underline underline-offset-8 text-violet-600 visited:text-violet-800"><a href={@data.key}>
+                            <%= @data.key %>
+                        </a></p>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <a class="bg-violet-800 hover:bg-violet-950 text-white font-bold py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline" href="/">
+                            Shorten new URL
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gradient col-span-2"></div>
+</div>

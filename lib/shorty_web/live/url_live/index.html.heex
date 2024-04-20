@@ -1,0 +1,46 @@
+<.header>
+  Listing Urls
+  <:actions>
+    <.link patch={~p"/dev/urls/new"}>
+      <.button>New Url</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="urls"
+  rows={@streams.urls}
+  row_click={fn {_id, url} -> JS.navigate(~p"/dev/urls/#{url}") end}
+>
+  <:col :let={{_id, url}} label="Key"><%= url.key %></:col>
+  <:col :let={{_id, url}} label="Url"><%= url.url %></:col>
+  <:col :let={{_id, url}} label="Visits"><%= url.visits %></:col>
+  <:action :let={{_id, url}}>
+    <.link patch={~p"/#{url.key}"}>Visit</.link>
+  </:action>
+  <:action :let={{_id, url}}>
+    <div class="sr-only">
+      <.link navigate={~p"/dev/urls/#{url}"}>Show</.link>
+    </div>
+    <.link patch={~p"/dev/urls/#{url}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, url}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: url.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="url-modal" show on_cancel={JS.patch(~p"/dev/urls")}>
+  <.live_component
+    module={ShortyWeb.UrlLive.FormComponent}
+    id={@url.id || :new}
+    title={@page_title}
+    action={@live_action}
+    url={@url}
+    patch={~p"/dev/urls"}
+  />
+</.modal>
