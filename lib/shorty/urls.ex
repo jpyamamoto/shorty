@@ -4,6 +4,7 @@ defmodule Shorty.Urls do
   """
 
   import Ecto.Query, warn: false
+  alias Shorty.Cache
   alias Shorty.Repo
 
   alias Shorty.Urls.Url
@@ -41,7 +42,22 @@ defmodule Shorty.Urls do
 
   def get_url(id), do: Repo.get(Url, id)
 
-  def get_url_by_key(key), do: Repo.get_by(Url, key: key)
+  def get_url_by_key(key, bypass_cache \\ false)
+  def get_url_by_key(key, true), do: Repo.get_by(Url, key: key)
+  def get_url_by_key(key, false) do
+    case Cache.get_url key do
+      nil ->
+        url = Repo.get_by(Url, key: key)
+
+        if url != nil do
+          Cache.insert_url url
+        else
+          url
+        end
+
+      url -> url
+    end
+  end
 
   @doc """
   Creates a url.
@@ -89,9 +105,12 @@ defmodule Shorty.Urls do
     |> Repo.update()
   end
 
-  def increment_visits(%Url{} = url) do
-    url
-    |> update_url(%{ visits: url.visits + 1 })
+  def increment_visits_of_key(key) do
+    url = get_url_by_key(key, true)
+
+    if url != nil do
+      update_url(url, %{ visits: url.visits + 1 })
+    end
   end
 
   @doc """

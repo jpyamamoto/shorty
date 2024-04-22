@@ -21,7 +21,7 @@ defmodule ShortyWeb.UrlController do
         |> put_flash(:error, "Link does not exist")
         |> redirect(to: "/")
       url ->
-        Task.start(fn -> Urls.increment_visits(url) end)
+        Task.start(fn -> Urls.increment_visits_of_key(url.key) end)
         redirect(conn, external: url.url)
     end
   end

@@ -17,6 +17,8 @@ defmodule Shorty.Application do
       {Phoenix.PubSub, name: Shorty.PubSub},
       # Start a worker by calling: Shorty.Worker.start_link(arg)
       # {Shorty.Worker, arg},
+      Shorty.Cache,
+
       # Start to serve requests, typically the last entry
       ShortyWeb.Endpoint
     ]
