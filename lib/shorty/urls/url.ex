@@ -5,7 +5,7 @@ defmodule Shorty.Urls.Url do
   schema "urls" do
     field :key, :string
     field :url, :string
-    field :visits, :integer
+    field :visits, :integer, default: 0
 
     timestamps(type: :utc_datetime)
   end
@@ -21,7 +21,10 @@ defmodule Shorty.Urls.Url do
 
   defp validate_url(changeset) do
     url_field = get_field(changeset, :url)
+    valid_url(changeset, url_field)
+  end
 
+  defp valid_url(changeset, url_field) when is_binary(url_field) do
     case URI.new(url_field) do
       {:ok, url}->
         if url.scheme != nil and url.host != nil do
@@ -33,4 +36,5 @@ defmodule Shorty.Urls.Url do
           add_error(changeset, :url, "Not a valid URL")
     end
   end
+  defp valid_url(changeset, _url_field), do: add_error(changeset, :url, "Not a valid URL")
 end

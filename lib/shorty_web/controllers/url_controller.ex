@@ -42,7 +42,7 @@ defmodule ShortyWeb.UrlController do
   Shorten a given URL.
   """
   def create(conn, %{"url" => url}) do
-    with {:ok, %Url{} = url} <- Urls.create_url(%{"url" => url}) do
+    with {:ok, %Url{} = url} <- Urls.create_url(%{url: url}) do
       conn
       |> put_status(:created)
       |> render(:create, layout: false, data: url)

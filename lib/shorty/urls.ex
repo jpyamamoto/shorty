@@ -173,7 +173,7 @@ defmodule Shorty.Urls do
   # Random key
 
   defp set_random_key(url_attrs) do
-    Map.put(url_attrs, "key", create_random_key(@num_bytes))
+    Map.put(url_attrs, :key, create_random_key(@num_bytes))
   end
 
   defp create_random_key(num_bytes) when is_number(num_bytes) and num_bytes > 0 do
