@@ -34,8 +34,12 @@ defmodule ShortyWeb.UrlController do
   def index(conn, params) do
     %{"key" => key} = params
 
-    url = Urls.get_url_by_key(key, true)
-    render(conn, :index, data: url)
+    case Urls.get_url_by_key(key, true) do
+      nil ->
+        {:error, :not_found}
+      url ->
+        render(conn, :index, data: url)
+    end
   end
 
   @doc """

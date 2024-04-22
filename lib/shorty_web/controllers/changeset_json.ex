@@ -22,4 +22,8 @@ defmodule ShortyWeb.ChangesetJSON do
       String.replace(acc, "%{#{key}}", fn _ -> to_string(value) end)
     end)
   end
+
+  def render(_template, _conn) do
+    %{error: "Not found"}
+  end
 end
