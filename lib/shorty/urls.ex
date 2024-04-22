@@ -40,8 +40,36 @@ defmodule Shorty.Urls do
   """
   def get_url!(id), do: Repo.get!(Url, id)
 
+  @doc """
+  Gets a single url.
+
+  Returns `nil` if the Url does not exist.
+
+  ## Examples
+
+      iex> get_url(123)
+      %Url{}
+
+      iex> get_url(456)
+      nil
+
+  """
   def get_url(id), do: Repo.get(Url, id)
 
+  @doc """
+  Gets a single url given its key.
+
+  Returns `nil` if the Url does not exist.
+
+  ## Examples
+
+      iex> get_url_by_key("aJbKo3s")
+      %Url{}
+
+      iex> get_url_by_key("o_3AkrJ")
+      nil
+
+  """
   def get_url_by_key(key, bypass_cache \\ false)
   def get_url_by_key(key, true), do: Repo.get_by(Url, key: key)
   def get_url_by_key(key, false) do
@@ -141,6 +169,8 @@ defmodule Shorty.Urls do
   def change_url(%Url{} = url, attrs \\ %{}) do
     Url.changeset(url, attrs)
   end
+
+  # Random key
 
   defp set_random_key(url_attrs) do
     Map.put(url_attrs, "key", create_random_key(@num_bytes))

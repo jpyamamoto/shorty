@@ -20,7 +20,6 @@ defmodule ShortyWeb.UrlLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:url]} type="text" label="Url" />
-        <.input field={@form[:visits]} type="number" label="Visits" value="0" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Url</.button>
         </:actions>

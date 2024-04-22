@@ -17,8 +17,8 @@ defmodule ShortyWeb.Router do
   scope "/", ShortyWeb do
     pipe_through :browser
 
-    get "/:key", UrlController, :index
     post "/new", UrlController, :create
+    get "/:key", UrlController, :access
     get "/", UrlController, :home
   end
 
@@ -26,15 +26,11 @@ defmodule ShortyWeb.Router do
     pipe_through :api
 
     post "/new", UrlController, :create
+    get "/:key", UrlController, :index
   end
 
   # Enable LiveDashboard in development
   if Application.compile_env(:shorty, :dev_routes) do
-    # If you want to use the LiveDashboard in production, you should put
-    # it behind authentication and allow only admins to access it.
-    # If your application does not have an admins-only section yet,
-    # you can use Plug.BasicAuth to set up some basic authentication
-    # as long as you are also using SSL (which you should anyway).
     import Phoenix.LiveDashboard.Router
 
     scope "/dev", ShortyWeb do

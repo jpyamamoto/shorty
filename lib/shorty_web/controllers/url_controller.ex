@@ -6,13 +6,18 @@ defmodule ShortyWeb.UrlController do
 
   action_fallback ShortyWeb.FallbackController
 
+  @doc """
+  Home page of the website when accessed from the browser.
+  """
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
     render(conn, :home, layout: false, changeset: %{"url" => nil})
   end
 
-  def index(conn, params) do
+  @doc """
+  Try to perform a redirection given a URL, or return to
+  the homepage with an error.
+  """
+  def access(conn, params) do
     %{"key" => key} = params
 
     case Urls.get_url_by_key(key) do
@@ -26,6 +31,16 @@ defmodule ShortyWeb.UrlController do
     end
   end
 
+  def index(conn, params) do
+    %{"key" => key} = params
+
+    url = Urls.get_url_by_key(key, true)
+    render(conn, :index, data: url)
+  end
+
+  @doc """
+  Shorten a given URL.
+  """
   def create(conn, %{"url" => url}) do
     with {:ok, %Url{} = url} <- Urls.create_url(%{"url" => url}) do
       conn

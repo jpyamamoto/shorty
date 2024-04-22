@@ -5,10 +5,20 @@ defmodule Shorty.Cache do
 
   @name_table :urls_cache
 
+  @doc """
+  Start the caching service.
+  """
   def start_link(state \\ []) do
     GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
+  @doc """
+  Retrieve a URL from the cache.
+
+  This will yield a `Url` struct, but only the `key` and `url` will be provided.
+
+  If the key is not cached, return `nil`.
+  """
   def get_url(key) do
     case :ets.lookup(@name_table, key) do
       [] -> nil
@@ -16,6 +26,12 @@ defmodule Shorty.Cache do
     end
   end
 
+  @doc """
+  Insert a `Url` to the cache.
+
+  Returns the same `Url` struct, so it can be run in a pipeline
+  without altering the result.
+  """
   def insert_url(%Url{} = url) do
     :ets.insert(@name_table, {url.key, url.url})
     url
