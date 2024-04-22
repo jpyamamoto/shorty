@@ -4,7 +4,7 @@ defmodule ShortyWeb.UrlJSON do
   @doc """
   Renders a single url as a JSON.
   """
-  def create(%{url: url}) do
+  def create(%{data: url}) do
     %{data: data(url)}
   end
 

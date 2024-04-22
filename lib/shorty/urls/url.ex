@@ -16,5 +16,21 @@ defmodule Shorty.Urls.Url do
     |> cast(attrs, [:key, :url, :visits])
     |> validate_required([:url])
     |> unique_constraint(:key)
+    |> validate_url()
+  end
+
+  defp validate_url(changeset) do
+    url_field = get_field(changeset, :url)
+
+    case URI.new(url_field) do
+      {:ok, url}->
+        if url.scheme != nil and url.host != nil do
+          changeset
+        else
+          add_error(changeset, :url, "Not a valid URL")
+        end
+      {:error, _} ->
+          add_error(changeset, :url, "Not a valid URL")
+    end
   end
 end

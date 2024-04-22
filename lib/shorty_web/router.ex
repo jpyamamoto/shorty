@@ -17,9 +17,9 @@ defmodule ShortyWeb.Router do
   scope "/", ShortyWeb do
     pipe_through :browser
 
-    get "/:key", PageController, :index
-    post "/new", PageController, :create
-    get "/", PageController, :home
+    get "/:key", UrlController, :index
+    post "/new", UrlController, :create
+    get "/", UrlController, :home
   end
 
   scope "/api", ShortyWeb do
