@@ -14,6 +14,7 @@ defmodule ShortyWeb.FallbackController do
     |> put_view(html: ShortyWeb.ErrorHTML, json: ShortyWeb.ChangesetJSON)
     |> render(:"404")
   end
+
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)

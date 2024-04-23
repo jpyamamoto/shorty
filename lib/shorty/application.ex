@@ -11,8 +11,7 @@ defmodule Shorty.Application do
       ShortyWeb.Telemetry,
       Shorty.Repo,
       {Ecto.Migrator,
-        repos: Application.fetch_env!(:shorty, :ecto_repos),
-        skip: skip_migrations?()},
+       repos: Application.fetch_env!(:shorty, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:shorty, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Shorty.PubSub},
       # Start a worker by calling: Shorty.Worker.start_link(arg)

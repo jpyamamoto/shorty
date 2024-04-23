@@ -71,7 +71,7 @@ defmodule Shorty.UrlsTest do
       url = url_fixture()
       assert {:ok, %Url{}} = Urls.delete_url(url)
       assert_raise Ecto.NoResultsError, fn -> Urls.get_url!(url.id) end
-     end
+    end
 
     test "change_url/1 returns a url changeset" do
       url = url_fixture()

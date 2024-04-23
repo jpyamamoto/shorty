@@ -19,7 +19,7 @@ defmodule ShortyWeb.UrlJSON do
     %{
       shortened: "#{ShortyWeb.Endpoint.url()}/#{url.key}",
       url: url.url,
-      visits: url.visits,
+      visits: url.visits
     }
   end
 end

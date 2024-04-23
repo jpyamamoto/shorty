@@ -20,7 +20,7 @@ defmodule ShortyWeb.UrlControllerJSONJSONTest do
       conn = get(conn, "/api#{key}")
 
       assert %{
-              "shortened" => ^id
+               "shortened" => ^id
              } = json_response(conn, 200)["data"]
     end
 

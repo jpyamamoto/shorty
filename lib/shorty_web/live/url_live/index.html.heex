@@ -34,7 +34,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="url-modal" show on_cancel={JS.patch(~p"/dev/urls")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="url-modal"
+  show
+  on_cancel={JS.patch(~p"/dev/urls")}
+>
   <.live_component
     module={ShortyWeb.UrlLive.FormComponent}
     id={@url.id || :new}

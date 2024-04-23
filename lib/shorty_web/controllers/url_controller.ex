@@ -25,6 +25,7 @@ defmodule ShortyWeb.UrlController do
         conn
         |> put_flash(:error, "Link does not exist")
         |> redirect(to: "/")
+
       url ->
         Task.start(fn -> Urls.increment_visits_of_key(url.key) end)
         redirect(conn, external: url.url)
@@ -37,6 +38,7 @@ defmodule ShortyWeb.UrlController do
     case Urls.get_url_by_key(key, true) do
       nil ->
         {:error, :not_found}
+
       url ->
         render(conn, :index, data: url)
     end

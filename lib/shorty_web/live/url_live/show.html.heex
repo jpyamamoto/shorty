@@ -16,7 +16,12 @@
 
 <.back navigate={~p"/dev/urls"}>Back to urls</.back>
 
-<.modal :if={@live_action == :edit} id="url-modal" show on_cancel={JS.patch(~p"/dev/urls/#{@url}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="url-modal"
+  show
+  on_cancel={JS.patch(~p"/dev/urls/#{@url}")}
+>
   <.live_component
     module={ShortyWeb.UrlLive.FormComponent}
     id={@url.id}

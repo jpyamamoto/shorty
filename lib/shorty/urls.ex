@@ -72,18 +72,20 @@ defmodule Shorty.Urls do
   """
   def get_url_by_key(key, bypass_cache \\ false)
   def get_url_by_key(key, true), do: Repo.get_by(Url, key: key)
+
   def get_url_by_key(key, false) do
-    case Cache.get_url key do
+    case Cache.get_url(key) do
       nil ->
         url = Repo.get_by(Url, key: key)
 
         if url != nil do
-          Cache.insert_url url
+          Cache.insert_url(url)
         else
           url
         end
 
-      url -> url
+      url ->
+        url
     end
   end
 
@@ -105,13 +107,17 @@ defmodule Shorty.Urls do
 
     case Repo.insert(new_url) do
       {:error, wrong_url} ->
-        if Enum.any?(wrong_url.errors,
-              fn {_, {_, errors}} -> Keyword.get(errors, :constraint) == :unique end) do
+        if Enum.any?(
+             wrong_url.errors,
+             fn {_, {_, errors}} -> Keyword.get(errors, :constraint) == :unique end
+           ) do
           create_url(attrs)
         else
           {:error, wrong_url}
         end
-      {:ok, url} -> {:ok, url}
+
+      {:ok, url} ->
+        {:ok, url}
     end
   end
 
@@ -137,7 +143,7 @@ defmodule Shorty.Urls do
     url = get_url_by_key(key, true)
 
     if url != nil do
-      update_url(url, %{ visits: url.visits + 1 })
+      update_url(url, %{visits: url.visits + 1})
     end
   end
 

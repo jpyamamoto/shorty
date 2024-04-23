@@ -22,7 +22,7 @@ defmodule Shorty.Cache do
   def get_url(key) do
     case :ets.lookup(@name_table, key) do
       [] -> nil
-      [{^key, url} | _] -> %Url{ key: key, url: url }
+      [{^key, url} | _] -> %Url{key: key, url: url}
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Shorty.Cache do
   end
 
   # Callbacks
-  @impl(GenServer)
+  @impl GenServer
   def init(state) do
     :ets.new(@name_table, [:set, :public, :named_table, read_concurrency: true])
     {:ok, state}
