@@ -1,9 +1,7 @@
-defmodule ShortyWeb.UrlControllerTest do
+defmodule ShortyWeb.UrlControllerJSONJSONTest do
   use ShortyWeb.ConnCase
 
-  # import Shorty.UrlsFixtures
-
-  # alias Shorty.Urls.Url
+  import Shorty.UrlsFixtures
 
   @create_attrs "https://hexdocs.pm/ecto/Ecto.html"
   @invalid_attrs %{}
@@ -22,7 +20,7 @@ defmodule ShortyWeb.UrlControllerTest do
       conn = get(conn, "/api#{key}")
 
       assert %{
-               "shortened" => ^id
+              "shortened" => ^id
              } = json_response(conn, 200)["data"]
     end
 
@@ -32,8 +30,17 @@ defmodule ShortyWeb.UrlControllerTest do
     end
   end
 
-  # defp create_url(_) do
-  #   url = url_fixture()
-  #   %{url: url}
-  # end
+  describe "retrieve url information" do
+    test "renders correct url data", %{conn: conn} do
+      url = url_fixture()
+      conn = get(conn, "/api/#{url.key}")
+
+      assert %{"shortened" => shortened, "url" => original_url} = json_response(conn, 200)["data"]
+
+      <<?/, key::binary>> = URI.new!(shortened).path
+
+      assert url.key == key
+      assert url.url == original_url
+    end
+  end
 end
