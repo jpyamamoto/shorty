@@ -30,9 +30,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/jpyamamoto/shorty">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Shorty</h3>
 
@@ -210,11 +207,11 @@ Project Link: [https://github.com/jpyamamoto/shorty](https://github.com/jpyamamo
 [license-shield]: https://img.shields.io/github/license/jpyamamoto/shorty.svg?style=for-the-badge
 [license-url]: https://github.com/jpyamamoto/shorty/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://linkedin.com/in/jpyamamoto
 [product-screenshot]: screen.png
-[Phoenix]: https://img.shields.io/badge/phoenixframework-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Phoenix]: https://img.shields.io/badge/Phoenix-000000?style=for-the-badge&logo=phoenixframework&logoColor=white
 [Phoenix-url]: https://www.phoenixframework.org/
-[Elixir]: https://img.shields.io/badge/elixir-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Elixir]: https://img.shields.io/badge/Elixir-000000?style=for-the-badge&logo=elixir&logoColor=white
 [Elixir-url]: https://elixir-lang.org/
-[TailwindCSS]: https://img.shields.io/badge/elixir-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[TailwindCSS]: https://img.shields.io/badge/TailwindCSS-000000?style=for-the-badge&logo=tailwindcss&logoColor=white
 [TailwindCSS-url]: https://tailwindcss.com/
