@@ -21,12 +21,12 @@ defmodule Shorty.UrlsTest do
     end
 
     test "create_url/1 with valid data creates a url" do
-      valid_attrs = %{key: "some key", url: "some url", visits: 42}
+      valid_attrs = %{url: "https://www.phoenixframework.org/"}
 
       assert {:ok, %Url{} = url} = Urls.create_url(valid_attrs)
-      assert url.key == "some key"
-      assert url.url == "some url"
-      assert url.visits == 42
+      assert url.key != ""
+      assert url.url == "https://www.phoenixframework.org/"
+      assert url.visits == 0
     end
 
     test "create_url/1 with invalid data returns error changeset" do
@@ -35,11 +35,11 @@ defmodule Shorty.UrlsTest do
 
     test "update_url/2 with valid data updates the url" do
       url = url_fixture()
-      update_attrs = %{key: "some updated key", url: "some updated url", visits: 43}
+      update_attrs = %{key: "oayQyeU", url: "https://elixir-lang.org/", visits: 43}
 
       assert {:ok, %Url{} = url} = Urls.update_url(url, update_attrs)
-      assert url.key == "some updated key"
-      assert url.url == "some updated url"
+      assert url.key == "oayQyeU"
+      assert url.url == "https://elixir-lang.org/"
       assert url.visits == 43
     end
 

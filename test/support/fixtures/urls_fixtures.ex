@@ -11,8 +11,8 @@ defmodule Shorty.UrlsFixtures do
     {:ok, url} =
       attrs
       |> Enum.into(%{
-        key: "some key",
-        url: "some url",
+        key: "0dWxHh4",
+        url: "https://google.com/",
         visits: 42
       })
       |> Shorty.Urls.create_url()

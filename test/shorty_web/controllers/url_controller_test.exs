@@ -1,82 +1,39 @@
 defmodule ShortyWeb.UrlControllerTest do
   use ShortyWeb.ConnCase
 
-  import Shorty.UrlsFixtures
+  # import Shorty.UrlsFixtures
 
-  alias Shorty.Urls.Url
+  # alias Shorty.Urls.Url
 
-  @create_attrs %{
-
-  }
-  @update_attrs %{
-
-  }
+  @create_attrs "https://hexdocs.pm/ecto/Ecto.html"
   @invalid_attrs %{}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 
-  describe "index" do
-    test "lists all urls", %{conn: conn} do
-      conn = get(conn, ~p"/api/urls")
-      assert json_response(conn, 200)["data"] == []
-    end
-  end
-
   describe "create url" do
     test "renders url when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/api/urls", url: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+      conn = post(conn, ~p"/api/new", url: @create_attrs)
+      assert %{"shortened" => id} = json_response(conn, 201)["data"]
 
-      conn = get(conn, ~p"/api/urls/#{id}")
+      {:ok, %{path: key}} = URI.new(id)
+
+      conn = get(conn, "/api#{key}")
 
       assert %{
-               "id" => ^id
+               "shortened" => ^id
              } = json_response(conn, 200)["data"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/api/urls", url: @invalid_attrs)
+      conn = post(conn, ~p"/api/new", url: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
-  describe "update url" do
-    setup [:create_url]
-
-    test "renders url when data is valid", %{conn: conn, url: %Url{id: id} = url} do
-      conn = put(conn, ~p"/api/urls/#{url}", url: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-      conn = get(conn, ~p"/api/urls/#{id}")
-
-      assert %{
-               "id" => ^id
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, url: url} do
-      conn = put(conn, ~p"/api/urls/#{url}", url: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
-  describe "delete url" do
-    setup [:create_url]
-
-    test "deletes chosen url", %{conn: conn, url: url} do
-      conn = delete(conn, ~p"/api/urls/#{url}")
-      assert response(conn, 204)
-
-      assert_error_sent 404, fn ->
-        get(conn, ~p"/api/urls/#{url}")
-      end
-    end
-  end
-
-  defp create_url(_) do
-    url = url_fixture()
-    %{url: url}
-  end
+  # defp create_url(_) do
+  #   url = url_fixture()
+  #   %{url: url}
+  # end
 end
